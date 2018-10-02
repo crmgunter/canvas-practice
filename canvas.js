@@ -40,10 +40,26 @@ var mouse = {
     y: undefined
 }
 
+var maxRadius = 40
+// var minRadius = 3
+
+var colorArray = [
+    'c3c7f7',
+    '68abb2',
+    '11d1eb',
+    '2e7181',
+    '73a768',
+    'a5a1a1'
+]
+
 window.addEventListener('mousemove', (event) => {
     mouse.x = event.x
     mouse.y = event.y
-    console.log(mouse)
+})
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
 })
 
 function Circle(x, y, dx, dy, radius) {
@@ -52,12 +68,13 @@ function Circle(x, y, dx, dy, radius) {
   this.dx = dx;
   this.dy = dy;
   this.radius = radius;
+  this.minRadius = radius
+  this.color = '#' + colorArray[Math.floor(Math.random() * colorArray.length)]
 
   this.draw = function() {
     c.beginPath();
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    c.strokeStyle = "blue";
-    c.stroke();
+    c.fillStyle = this.color
     c.fill()
   };
 
@@ -75,10 +92,10 @@ function Circle(x, y, dx, dy, radius) {
 
     if (mouse.x - this.x < 50 && mouse.x - this.x > -50 && mouse.y - this.y < 50 && mouse.y - this.y > -50) {
         this.radius += 1
-        if (this.radius < 40) {
+        if (this.radius < maxRadius) {
             this.radius +=1
         }
-    } if (this.radius > 2) {
+    } if (this.radius > this.minRadius) {
         this.radius -=1
     }
 
@@ -94,16 +111,14 @@ var radius = 30;
 
 var circleArray = [];
 
-for (let i = 0; i < 100; i++) {
-  var radius = 30;
+for (let i = 0; i < 800; i++) {
+  var radius = Math.random() * 3 + 1;
   var x = Math.random() * (innerWidth - radius * 2) + radius;
   var y = Math.random() * (innerHeight - radius * 2) + radius;
   var dx = (Math.random() - 0.5) * 8;
   var dy = (Math.random() - 0.5) * 8;
   circleArray.push(new Circle(x, y, dx, dy, radius));
 }
-
-console.log(circleArray);
 
 var circle = new Circle(200, 200, 3, 3, 30);
 
