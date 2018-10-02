@@ -42,7 +42,7 @@ var mouse = {
     y: undefined
 }
 
-var maxRadius = 40
+var maxRadius = 70
 // var minRadius = 3
 
 var colorArray = [
@@ -123,7 +123,7 @@ var circleArray = [];
 function init() {
     circleArray = []
 
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 1000; i++) {
         var radius = Math.random() * 3 + 1;
         var x = Math.random() * (innerWidth - radius * 2) + radius;
         var y = Math.random() * (innerHeight - radius * 2) + radius;
