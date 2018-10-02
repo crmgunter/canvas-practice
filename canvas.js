@@ -35,6 +35,17 @@ let c = canvas.getContext("2d");
 //   c.stroke();
 // }
 
+var mouse = {
+    x: undefined,
+    y: undefined
+}
+
+window.addEventListener('mousemove', (event) => {
+    mouse.x = event.x
+    mouse.y = event.y
+    console.log(mouse)
+})
+
 function Circle(x, y, dx, dy, radius) {
   this.x = x;
   this.y = y;
@@ -45,8 +56,9 @@ function Circle(x, y, dx, dy, radius) {
   this.draw = function() {
     c.beginPath();
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    c.strokeStyle = "yellow";
+    c.strokeStyle = "blue";
     c.stroke();
+    c.fill()
   };
 
   this.update = function() {
@@ -59,28 +71,39 @@ function Circle(x, y, dx, dy, radius) {
     this.x += this.dx;
     this.y += this.dy;
 
+    //interactivity
+
+    if (mouse.x - this.x < 50 && mouse.x - this.x > -50 && mouse.y - this.y < 50 && mouse.y - this.y > -50) {
+        this.radius += 1
+        if (this.radius < 40) {
+            this.radius +=1
+        }
+    } if (this.radius > 2) {
+        this.radius -=1
+    }
+
     this.draw();
   };
 }
 
 var x = Math.random() * innerWidth;
 var y = Math.random() * innerWidth;
-var dx = (Math.random() - 0.5) * 8;
-var dy = (Math.random() - 0.5) * 8;
+var dx = (Math.random() - 0.5) * 5;
+var dy = (Math.random() - 0.5) * 5;
 var radius = 30;
 
 var circleArray = [];
 
 for (let i = 0; i < 100; i++) {
-  var x = Math.random() * innerWidth;
-  var y = Math.random() * innerWidth;
+  var radius = 30;
+  var x = Math.random() * (innerWidth - radius * 2) + radius;
+  var y = Math.random() * (innerHeight - radius * 2) + radius;
   var dx = (Math.random() - 0.5) * 8;
   var dy = (Math.random() - 0.5) * 8;
-  var radius = 30;
   circleArray.push(new Circle(x, y, dx, dy, radius));
 }
 
-console.log(circleArray)
+console.log(circleArray);
 
 var circle = new Circle(200, 200, 3, 3, 30);
 
@@ -89,7 +112,7 @@ function animate() {
   c.clearRect(0, 0, innerWidth, innerHeight);
 
   for (let i = 0; i < circleArray.length; i++) {
-      circleArray[i].update()
+    circleArray[i].update();
   }
   circle.update();
 }
