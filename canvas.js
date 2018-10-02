@@ -120,8 +120,6 @@ for (let i = 0; i < 800; i++) {
   circleArray.push(new Circle(x, y, dx, dy, radius));
 }
 
-var circle = new Circle(200, 200, 3, 3, 30);
-
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, innerWidth, innerHeight);
@@ -129,7 +127,6 @@ function animate() {
   for (let i = 0; i < circleArray.length; i++) {
     circleArray[i].update();
   }
-  circle.update();
 }
 
 animate();
