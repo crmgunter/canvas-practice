@@ -35,6 +35,8 @@ let c = canvas.getContext("2d");
 //   c.stroke();
 // }
 
+
+
 var mouse = {
     x: undefined,
     y: undefined
@@ -74,6 +76,11 @@ function Circle(x, y, dx, dy, radius) {
   this.color = '#' + colorArray[Math.floor(Math.random() * colorArray.length)]
 
   this.draw = function() {
+    c.font = '30px Arial'
+    c.fillStyle = 'black'
+    c.textAlign = "center"
+    c.fillText('hey whaddup', canvas.width/2, canvas.height/2)
+
     c.beginPath();
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
     c.fillStyle = this.color
